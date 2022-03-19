@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setUser } from '../reducers/userReducers'
+import { setUser, set_contacts } from '../reducers/userReducers'
 
 
 let domain = 'http://localhost:5000';
@@ -46,6 +46,22 @@ export const auth = () => {
         } catch (e) {
             console.log(e)
             localStorage.removeItem('token')
+        }
+    }
+}
+
+
+export const get_contacts = (callback) => {
+    return async dispatch => {
+        try {
+            if (!localStorage.getItem('token')) { return }
+            const response = await axios.get(`${domain}/get-contacts?content-type=application/json; charset=utf-8`,
+                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+            )
+            dispatch(set_contacts(response.data.contacts))
+        } catch (e) {
+            callback(e.response.data.message)
+            console.log(e)
         }
     }
 }

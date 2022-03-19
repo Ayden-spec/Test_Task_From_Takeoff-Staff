@@ -17,7 +17,7 @@ function Authorization() {
         <div className='container_auth'>
             <p className='auth_title'><strong>Авторизация</strong></p>
             {Error !== '' &&
-                <div className='input_auth _+error'>
+                <div className='input_auth error'>
                     <p><strong>{Error}</strong></p>
                 </div>
             }

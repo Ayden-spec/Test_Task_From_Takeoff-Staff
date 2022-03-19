@@ -98,5 +98,26 @@ router.get('/auth', authMidleware ,async (req, res) => {
     }
 })
 
+router.get('/get-contacts', authMidleware ,async (req, res) => {
+    try {
+        mysqls.executeQuery(`SELECT * FROM contacts WHERE user_id = '${req.user.id}' ORDER BY name`, function (err, rows, fields) {
+            if (err) {
+                console.log('[DATABASE | ERROR] ' + err);
+                return;
+            }
+            if (rows.length === 0) {
+                return res.status(400).json({ message: "Контактов нет." })
+            }
+            return res.json({
+                contacts: rows
+            })
+        });
+    } catch (e) {
+        console.log(e);
+        res.send({ message: "server error" })
+    }
+})
+
+
 
 module.exports = router;
