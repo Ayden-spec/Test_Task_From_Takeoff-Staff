@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
             }
 
             if (rows.length === 0) {
-                return res.status(400).json({ message: "Пользователь не найден." })
+                return res.status(400).send({ message: "Пользователь не найден." })
             }
 
             if (!bcrypt.compareSync(password, rows[0].password)) {

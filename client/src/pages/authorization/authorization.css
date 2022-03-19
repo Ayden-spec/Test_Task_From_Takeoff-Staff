@@ -16,9 +16,20 @@
 }
 
 .auth_title{
+    margin-bottom: 20px;
+}
+
+
+.auth_title strong{
     font-size: 19px;
     font-weight: 900;
-    margin-bottom: 20px;
+}
+
+.error p strong{
+    color: red;
+    font-size: 19px;
+    font-weight: 900;
+    font-style: normal;
 }
 
 .input_auth{
