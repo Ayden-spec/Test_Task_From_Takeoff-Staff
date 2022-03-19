@@ -32,7 +32,7 @@ function Contacts() {
             }
             {
                 Error === '' && contacts.map(element=>(
-                    <div className='contact' onClick={()=>navigate(`/contact/${element.contact_id}`)}>{element.name}</div>
+                    <div key={`${element.user_id}_${element.contact_id}`} className='contact' onClick={()=>navigate(`/contact/${element.contact_id}`)}>{element.name}</div>
                 ))
             }
         </div>

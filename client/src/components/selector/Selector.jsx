@@ -12,7 +12,7 @@ function Selector({ data, callback }) {
     const HandleChange = (e) => {
         SetActive(true)
         Set_Input_Value(e)
-        SetData(data.filter(el => el.toLowerCase().includes(e.toLowerCase())))
+        SetData(data.filter(el => el.toLowerCase().includes(e.toLowerCase())).slice(0,3))
         callback(e) //В данном месте используется для демонстрации, что callback работает.
     }
 

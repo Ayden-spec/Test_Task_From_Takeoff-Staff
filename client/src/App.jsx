@@ -24,8 +24,8 @@ function App() {
           {!isAuth && <Route path="/" element={<Authorization />} />}
           {isAuth && <Route path="/contacts" element={<Contacts />} />}
           {isAuth && <Route path="/*" element={<Contacts />} />}
-          {isAuth && <Route path="/contact/:id" element={<Contact />} />}
-          {isAuth && <Route path="/addcontact" element={<Contact />} />}
+          {isAuth && <Route path="/contact/:id" element={<Contact edit={false} type='edit'/>} />}
+          {isAuth && <Route path="/addcontact" element={<Contact edit={true} type='add'/>} />}
         </Routes>
       </div>
     </BrowserRouter>

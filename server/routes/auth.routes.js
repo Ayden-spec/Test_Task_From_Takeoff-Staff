@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/auth', authMidleware ,async (req, res) => {
+router.get('/auth', authMidleware, async (req, res) => {
     try {
         mysqls.executeQuery(`SELECT * FROM users WHERE id = '${req.user.id}' LIMIT 1`, function (err, rows, fields) {
             if (err) {
@@ -98,7 +98,7 @@ router.get('/auth', authMidleware ,async (req, res) => {
     }
 })
 
-router.get('/get-contacts', authMidleware ,async (req, res) => {
+router.get('/get-contacts', authMidleware, async (req, res) => {
     try {
         mysqls.executeQuery(`SELECT * FROM contacts WHERE user_id = '${req.user.id}' ORDER BY name`, function (err, rows, fields) {
             if (err) {
@@ -111,6 +111,74 @@ router.get('/get-contacts', authMidleware ,async (req, res) => {
             return res.json({
                 contacts: rows
             })
+        });
+    } catch (e) {
+        console.log(e);
+        res.send({ message: "server error" })
+    }
+})
+
+router.get('/get-contact/:id', authMidleware, async (req, res) => {
+    try {
+        mysqls.executeQuery(`SELECT * FROM contacts WHERE user_id = '${req.user.id}' AND contact_id = '${req.params.id}' LIMIT 1`, function (err, rows, fields) {
+            if (err) {
+                console.log('[DATABASE | ERROR] ' + err);
+                return;
+            }
+            if (rows.length === 0) {
+                return res.status(400).json({ message: "Контакт не найден." })
+            }
+            return res.json({
+                contact: rows[0]
+            })
+        });
+    } catch (e) {
+        console.log(e);
+        res.send({ message: "server error" })
+    }
+})
+
+
+router.put('/put-contact/:id', authMidleware, async (req, res) => {
+    try {
+        mysqls.executeQuery(`SELECT * FROM contacts WHERE user_id = '${req.user.id}' AND contact_id = '${req.params.id}' LIMIT 1`, function (err, rows, fields) {
+            if (err) {
+                console.log('[DATABASE | ERROR] ' + err);
+                return;
+            }
+            if (rows.length !== 0) {
+                mysqls.executeQuery(`UPDATE contacts SET name='${req.body.name}', phone_number='${req.body.phone_number}', email='${req.body.email}', comment='${req.body.comment}' WHERE user_id = '${req.user.id}' AND contact_id = '${req.params.id}'`)
+            }
+            return res.json({ message: 'Успешно изменено.' })
+        });
+    } catch (e) {
+        console.log(e);
+        res.send({ message: "server error" })
+    }
+})
+
+router.post('/post-contact', authMidleware, async (req, res) => {
+    try {
+        mysqls.executeQuery(`INSERT INTO contacts (user_id, name, phone_number, email, comment) 
+        VALUES ('${req.user.id}', '${req.body.name}', '${req.body.phone_number}', '${req.body.email}', '${req.body.comment}')`)
+        return res.json({ message: 'Успешно изменено.' })
+    } catch (e) {
+        console.log(e);
+        res.send({ message: "server error" })
+    }
+})
+
+router.delete('/delete-contact/:id', authMidleware, async (req, res) => {
+    try {
+        mysqls.executeQuery(`SELECT * FROM contacts WHERE user_id = '${req.user.id}' AND contact_id = '${req.params.id}' LIMIT 1`, function (err, rows, fields) {
+            if (err) {
+                console.log('[DATABASE | ERROR] ' + err);
+                return;
+            }
+            if (rows.length !== 0) {
+                mysqls.executeQuery(`DELETE FROM contacts WHERE user_id = '${req.user.id}' AND contact_id = '${req.params.id}'`)
+            }
+            return res.json({ message: 'Успешно изменено.' })
         });
     } catch (e) {
         console.log(e);

@@ -90,3 +90,42 @@
     cursor: pointer;
     margin-top: 20px;
 }
+
+.contact_block label input{
+    color: white;
+}
+
+.error strong{
+    color: red;
+    font-size: 30px;
+    font-weight: 800;
+
+}
+
+@media (max-width: 651px) {
+    .contact_block{
+        width: 80%;
+    }
+
+    .contact_button_del {
+        width: 40%;
+    }
+
+    .contact_button {
+        width: 40%;
+    }
+}
+
+@media (max-width: 351px) {
+    .contact_block{
+        width: 90%;
+    }
+
+    .contact_button_del {
+        width: 60%;
+    }
+
+    .contact_button {
+        width: 60%;
+    }
+}
