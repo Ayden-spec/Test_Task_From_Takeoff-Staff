@@ -1,0 +1,27 @@
+.container_input {
+    background: transparent;
+    outline: none !important;
+    color: #CFCFCF;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0px 5px 3px 5px;
+    border-bottom: solid 2px rgba(100, 100, 100, 50);
+    display: inline-block;
+}
+
+.placeholder_input {
+    font-size: 12px;
+    font-weight: 400;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.input {
+    background: transparent;
+    outline: none !important;
+    border: none;
+    width: 100%;
+}
