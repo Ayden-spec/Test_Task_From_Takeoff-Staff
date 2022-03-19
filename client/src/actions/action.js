@@ -58,9 +58,10 @@ export const get_contacts = (callback) => {
             const response = await axios.get(`${domain}/get-contacts?content-type=application/json; charset=utf-8`,
                 { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
             )
+            callback(response.data.contacts)
             dispatch(set_contacts(response.data.contacts))
         } catch (e) {
-            callback(e.response.data.message)
+            callback({error:e.response.data.message})
             console.log(e)
         }
     }

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './selector.css'
 
 
-function Selector({ data, callback }) {
+function Selector({ data, callback, placeholder }) {
     const [Input_Value, Set_Input_Value] = useState('');
     const [Active, SetActive] = useState(false)
     const [Data, SetData] = useState(data)
@@ -26,8 +26,8 @@ function Selector({ data, callback }) {
     return (
         <div className="select">
             <label className="select__input" onClick={() => SetActive(!Active)} ref={rootEl}>
-                Введите текст
-                <input value={Input_Value} onChange={(event) => HandleChange(event.target.value)} placeholder='Введите текст' className='select__toggle' />
+                {placeholder}
+                <input value={Input_Value} onChange={(event) => HandleChange(event.target.value)} className='select__toggle' />
             </label>
             <div className={Active ? "datalist" : 'display_none'}>
                 {
