@@ -2,6 +2,8 @@
 
 Решение тестового задания "Takeoff Staff".
 
+Данные для авторизации: email: takeoff@gmail.com ; password: 123456
+
 
 Client-side: React, Redux, Axios, React-Router;
 
